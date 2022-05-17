@@ -10,6 +10,12 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacesPopup from './AddPlacePopup';
 import {CurrentUserContext,} from '../contexts/CurrentUserContext';
 import api from "../utils/api";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import Register from './Register.js';
+import * as auth from '../utils/auth';
+import successIcon from '../images/success-icon.svg'
+import failIcon from '../images/fail-icon.svg'
 
 
 function App() {
@@ -33,6 +39,21 @@ function App() {
         about: 'Test',
         avatar: 'Test avatar',
     });
+
+    // Стейт для логина пользователя
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    // Стейт для данных пользователя
+    const [userData, setUserData] = useState({
+        email: '',
+        password: ''
+    })
+
+    // Стейт для аутентификации пользователя
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+    const history = useHistory()
 
     // Функция первоначальной загрузки пользователя и фотографий
     useEffect(() => {
@@ -152,22 +173,54 @@ function App() {
         setSelectedCard(null);
     }
 
+    // Регистрация пользователя
+    function handleRegister (email, password ) {
+        auth.register(email, password )
+            .then(() => {
+                setIsSuccess(true);
+                setIsInfoTooltipPopupOpen(true);
+                history.push('/sign-in');
+            })
+            .catch((err) => {
+                setIsSuccess(false);
+                setIsInfoTooltipPopupOpen(true);
+                console.log(`Ошибка регистрации. ${err}`);
+            })
+    }
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <div className="container">
-                    <Header/>
-
-                    <Main
-                        cards={cards}
-                        onEditProfile={handleEditProfilePopupOpen}
-                        onAddPlace={handleAddPlacePopupOpen}
-                        onEditAvatar={handleEditAvatarPopupOpen}
-                        onCardClick={handleCardClick}
-                        onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
-                        isLoading={isLoading}
+                    <Header
+                        loggedIn={loggedIn}
                     />
+                    <Switch>
+                        <ProtectedRoute
+                            exact path="/"
+                            loggedIn={loggedIn}
+                            component={Main}
+                            cards={cards}
+                            onEditProfile={handleEditProfilePopupOpen}
+                            onAddPlace={handleAddPlacePopupOpen}
+                            onEditAvatar={handleEditAvatarPopupOpen}
+                            onCardClick={handleCardClick}
+                            onCardLike={handleCardLike}
+                            onCardDelete={handleCardDelete}
+                            isLoading={isLoading}
+                        />
+                        <Route path="/sign-up">
+                            <Register
+                                onRegister={handleRegister}
+                            />
+                        </Route>
+                        <Route path="/sign-in">
+                            {/*<Login handleLogin={this.handleLogin} />*/}
+                        </Route>
+                        <Route exact path="*">
+                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+                        </Route>
+                    </Switch>
 
                     <Footer/>
 

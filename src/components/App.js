@@ -16,9 +16,16 @@ import Register from './Register.js';
 import * as auth from '../utils/auth';
 import successIcon from '../images/success-icon.svg'
 import failIcon from '../images/fail-icon.svg'
+import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
 
 
 function App() {
+
+    useEffect(() => {
+        checkToken()
+    }, [])
+
     // Стейты для popup (Принимает состояние - открыт-true/не открыт-false
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -173,7 +180,7 @@ function App() {
         setSelectedCard(null);
     }
 
-    // Регистрация пользователя
+
     function handleRegister (email, password ) {
         auth.register(email, password )
             .then(() => {
@@ -186,6 +193,34 @@ function App() {
                 setIsInfoTooltipPopupOpen(true);
                 console.log(`Ошибка регистрации. ${err}`);
             })
+    }
+
+    function handleLogin (email, password ) {
+        auth.authorize(email, password )
+            .then((response) => {
+                console.log('auth:', response)
+                if (response) {
+                    setLoggedIn(true)
+                    history.push('/');
+                }
+            })
+    }
+
+    const checkToken = () => {
+        const jwt = localStorage.getItem('jwt')
+        if (jwt) {
+            console.log('jwt', jwt)
+            auth.checkToken(jwt)
+                .then(response => {
+                    console.log('token:', response)
+
+                    setUserData({
+                        email: response.email
+                    })
+                    setLoggedIn(true)
+                    history.push('/')
+                })
+        }
     }
 
     return (
@@ -215,7 +250,9 @@ function App() {
                             />
                         </Route>
                         <Route path="/sign-in">
-                            {/*<Login handleLogin={this.handleLogin} />*/}
+                            <Login
+                                onLogin={handleLogin}
+                            />
                         </Route>
                         <Route exact path="*">
                             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
@@ -254,6 +291,11 @@ function App() {
 
                     <ImagePopup
                         card={selectedCard}
+                        onClose={closeAllPopups}
+                    />
+                    <InfoTooltip
+                        isOpen={isInfoTooltipPopupOpen}
+                        isSuccess={isSuccess}
                         onClose={closeAllPopups}
                     />
                 </div>

@@ -5,9 +5,6 @@ const checkResponse = (response) => {
         return response.json()
     }
 
-    // return response.json().then(res => {
-    //     throw res.message[0].messages[0].message
-    // })
     return Promise.reject(`Ошибка: ${response.status}`);
 }
 
@@ -33,6 +30,12 @@ export const authorize = (email, password) => {
         body: JSON.stringify({email, password})
     })
         .then(checkResponse)
+        .then((data) => {
+            if (data.token){
+                localStorage.setItem('jwt', data.token);
+                return data;
+            }
+        })
         .catch(err => console.log(err))
 };
 

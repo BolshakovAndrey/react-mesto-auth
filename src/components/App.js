@@ -51,14 +51,17 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     // Стейт для данных пользователя
-    const [userData, setUserData] = useState({
-        email: '',
-        password: ''
-    })
+    // const [userData, setUserData] = useState({
+    //     email: '',
+    //     password: ''
+    // })
 
     // Стейт для аутентификации пользователя
     const [isSuccess, setIsSuccess] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+    // Стейт для email пользователя
+    const [userEmail, setUserEmail] = useState("");
 
     const history = useHistory()
 
@@ -178,6 +181,7 @@ function App() {
         setAddPlacePopupOpen(false);
         setEditAvatarPopupOpen(false);
         setSelectedCard(null);
+        setIsInfoTooltipPopupOpen(false);
     }
 
 
@@ -195,15 +199,27 @@ function App() {
             })
     }
 
-    function handleLogin (email, password ) {
+    function handleLogin (email, password) {
         auth.authorize(email, password )
             .then((response) => {
                 console.log('auth:', response)
                 if (response) {
                     setLoggedIn(true)
+                    localStorage.setItem('jwt', response.token);
                     history.push('/');
                 }
             })
+            .catch((err) => {
+                setIsSuccess(false);
+                setIsInfoTooltipPopupOpen(true);
+                console.log(`Невозможно войти. ${err}`);
+            })
+    }
+
+    const handleSignOut = () => {
+        setLoggedIn(false);
+        localStorage.removeItem('jwt');
+        history.push("/sign-in");
     }
 
     const checkToken = () => {
@@ -212,13 +228,12 @@ function App() {
             console.log('jwt', jwt)
             auth.checkToken(jwt)
                 .then(response => {
-                    console.log('token:', response)
-
-                    setUserData({
-                        email: response.email
-                    })
-                    setLoggedIn(true)
+                    setLoggedIn(true);
+                    setUserEmail(response.data.email);
                     history.push('/')
+                })
+                .catch((err) => {
+                    console.log(`Error: ${err}`);
                 })
         }
     }
@@ -229,6 +244,8 @@ function App() {
                 <div className="container">
                     <Header
                         loggedIn={loggedIn}
+                        userEmail={userEmail}
+                        onSignOut={handleSignOut}
                     />
                     <Switch>
                         <ProtectedRoute

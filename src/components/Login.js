@@ -6,7 +6,6 @@ const Login = ({onLogin}) => {
         email: '',
         password: '',
     });
-    const [message, setMessage] = useState('');
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -28,9 +27,6 @@ const Login = ({onLogin}) => {
         <div onSubmit={handleSubmit} className="login">
             <p className="login__welcome">
                 Пожалуйста, войдите или зарегистрируйтесь
-            </p>
-            <p className="login__error">
-                {message}
             </p>
             <form className="login__form">
                 <label htmlFor="email">

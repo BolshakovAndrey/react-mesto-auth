@@ -2,8 +2,8 @@ import React from 'react'
 import logoPath from "../images/logo.svg";
 import {Link, useLocation} from "react-router-dom";
 
-// noinspection UnreachableCodeJS
-function Header({loggedIn, userEmail}) {
+
+function Header({loggedIn, userEmail, onSignOut}) {
     const location = useLocation();
 
     return (
@@ -13,8 +13,33 @@ function Header({loggedIn, userEmail}) {
             </a>
             {!loggedIn &&
                 (<nav>
-                        {location.pathname ===}
+                        {location.pathname === '/sign-in' &&
+                            (
+                                <Link className="header__navlink"
+                                      to="/sign-up">
+                                      Регистрация
+                                </Link>
+                            )
+                        }
+                        {location.pathname === '/sign-up' &&
+                            (
+                                <Link className="header__navlink"
+                                      to="/sign-in">
+                                      Войти
+                                </Link>
+                            )
+                        }
                 </nav>
+                )
+            }
+            {loggedIn &&
+                (
+                    <div className="header__user-info">
+                        <p className="header__email">{userEmail}</p>
+                        <button onClick={onSignOut} className="header__button" type="button">
+                            Выход
+                        </button>
+                    </div>
                 )
             }
         </header>

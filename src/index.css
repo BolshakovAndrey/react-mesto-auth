@@ -9,6 +9,8 @@
 @import url(./blocks/header/__user-info/header__user-info.css);
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__navlink/header__navlink.css);
+@import url(./blocks/header/__button/header__button.css);
+
 
 /*profile*/
 @import url(./blocks/profile/profile.css);

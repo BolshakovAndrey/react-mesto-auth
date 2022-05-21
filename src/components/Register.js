@@ -25,29 +25,39 @@ const Register = ({onRegister}) => {
     }
 
     return (
-        <div className="register">
-            <p className="register__welcome">
-                Пожалуйста, зарегистрируйтесь.
-            </p>
-            <form onSubmit={handleSubmit} className="register__form">
-                <label htmlFor="email">
-                    Email:
-                </label>
-                <input id="email" name="email" type="email" value={state.email} onChange={handleChange}/>
-                <label htmlFor="password">
-                    Пароль:
-                </label>
-                <input id="password" name="password" type="password" value={state.password}
-                       onChange={handleChange}/>
-                <div className="register__button-container">
-                    <button type="submit" onSubmit={handleSubmit} className="register__link">Зарегистрироваться
+        <div className="form form_type_auth">
+            <h2 className="form__heading">
+                Регистрация
+            </h2>
+            <form onSubmit={handleSubmit} className="popup__fieldset">
+                <input className="form__item"
+                       id="email"
+                       name="email"
+                       type="email"
+                       value={state.email}
+                       onChange={handleChange}
+                       placeholder="Email"
+                />
+                <p className="form__error" id="email-error"/>
+                <input className="form__item"
+                       id="password"
+                       name="password"
+                       type="password"
+                       value={state.password}
+                       onChange={handleChange}
+                       placeholder="Пароль"
+                />
+                <p className="form__error" id="email-error"/>
+                    <button type="submit"
+                            onSubmit={handleSubmit}
+                            className="popup__btn-submit popup__btn-submit_type_auth">
+                        Зарегистрироваться
                     </button>
-                </div>
+                    <p className="form__text">
+                        Уже зарегистрированы?
+                        <a className="form__link"
+                           href="/react-mesto-auth/sign-in"> Войти</a></p>
             </form>
-            <div className="register__signin">
-                <p>Уже зарегистрированы?</p>
-                <Link to="login" className="register__login-link">Войти</Link>
-            </div>
         </div>
     );
 }

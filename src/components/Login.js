@@ -24,28 +24,36 @@ const Login = ({onLogin}) => {
     }
 
     return(
-        <div onSubmit={handleSubmit} className="login">
-            <p className="login__welcome">
-                Пожалуйста, войдите или зарегистрируйтесь
-            </p>
-            <form className="login__form">
-                <label htmlFor="email">
-                    Email:
-                </label>
-                <input id="email" required name="email" type="email" value={inputs.email} onChange={handleChange} />
-                <label htmlFor="password">
-                    Пароль:
-                </label>
-                <input id="password" required name="password" type="password" value={inputs.password} onChange={handleChange} />
-                <div className="login__button-container">
-                    <button type="submit" className="popup__button-submit">Войти</button>
-                </div>
-            </form>
+        <div onSubmit={handleSubmit}
+             className="form form_type_auth">
+            <h2 className="form__heading">
+                Вход
+            </h2>
+            <form className="popup__fieldset">
+                <input className="form__item"
+                       id="email"
+                       required name="email"
+                       type="email"
+                       value={inputs.email}
+                       onChange={handleChange}
+                       placeholder="Email"
+                />
+                <p className="form__error" id="email-error"/>
+                <input className="form__item"
+                       id="password"
+                       required name="password"
+                       type="password"
+                       value={inputs.password}
+                       onChange={handleChange}
+                       placeholder="Пароль"
+                />
+                <p className="form__error" id="email-error"/>
+                <button type="submit"
+                            className="popup__btn-submit popup__btn-submit_type_auth">
+                        Войти
+                </button>
 
-            <div className="login__signup">
-                <p>Ещё не зарегистрированы?</p>
-                <Link to="/sign-up" className="signup__link">Зарегистрироваться</Link>
-            </div>
+            </form>
         </div>
     )
 }

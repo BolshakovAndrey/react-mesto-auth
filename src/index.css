@@ -46,7 +46,13 @@
 /*popup*/
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/__form/popup__form.css);
+@import url(./blocks/popup/__form/_type/popup__form_type_auth.css);
+@import url(./blocks/popup/__form-heading/popup__form-heading.css);
+@import url(./blocks/popup/__form-item/popup__form-item.css);
+@import url(./blocks/popup/__form-error/popup__form-error.css);
+@import url(./blocks/popup/__form-text/popup__form-text.css);
 @import url(./blocks/popup/__fieldset/popup__fieldset.css);
+@import url(./blocks/popup/__fieldset/_type/popup__fieldset_type_auth.css);
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__input/_error/popup__input_error.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
@@ -58,6 +64,7 @@
 @import url(./blocks/popup/__btn-save/popup__btn-save.css);
 @import url(./blocks/popup/__btn-save/_inactive/popup__btn-save_inactive.css);
 @import url(./blocks/popup/__btn-submit/popup_btn-submit.css);
+@import url(./blocks/popup/__btn-submit/_type/popup__btn-submit_type_auth.css);
 @import url(./blocks/popup/_type/popup_type_show-image.css);
 @import url(./blocks/popup/__image-title/popup__image-title.css);
 @import url(./blocks/popup/__foto/popup__foto.css);

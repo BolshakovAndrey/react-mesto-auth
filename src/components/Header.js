@@ -36,7 +36,7 @@ function Header({loggedIn, userEmail, onSignOut}) {
                 (
                     <div className="header__user-info">
                         <p className="header__email">{userEmail}</p>
-                        <button onClick={onSignOut} className="header_  _button" type="button">
+                        <button onClick={onSignOut} className="header__button" type="button">
                             Выход
                         </button>
                     </div>

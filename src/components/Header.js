@@ -12,35 +12,35 @@ function Header({loggedIn, userEmail, onSignOut}) {
                 <img alt="логотип сайта Место." className="header__logo" src={logoPath}/>
             </a>
             {!loggedIn &&
-                (<nav>
-                        {location.pathname === '/sign-in' &&
-                            (
-                                <Link className="header__navlink"
-                                      to="/sign-up">
-                                      Регистрация
-                                </Link>
-                            )
-                        }
-                        {location.pathname === '/sign-up' &&
-                            (
-                                <Link className="header__navlink"
-                                      to="/sign-in">
-                                      Войти
-                                </Link>
-                            )
-                        }
+            (<nav>
+                    {location.pathname === '/sign-in' &&
+                    (
+                        <Link className="header__navlink"
+                              to="/sign-up">
+                            Регистрация
+                        </Link>
+                    )
+                    }
+                    {location.pathname === '/sign-up' &&
+                    (
+                        <Link className="header__navlink"
+                              to="/sign-in">
+                            Войти
+                        </Link>
+                    )
+                    }
                 </nav>
-                )
+            )
             }
             {loggedIn &&
-                (
-                    <div className="header__user-info">
-                        <p className="header__email">{userEmail}</p>
-                        <button onClick={onSignOut} className="header__button" type="button">
-                            Выход
-                        </button>
-                    </div>
-                )
+            (
+                <div className="header__user-info">
+                    <p className="header__email">{userEmail}</p>
+                    <button onClick={onSignOut} className="header__button" type="button">
+                        Выход
+                    </button>
+                </div>
+            )
             }
         </header>
 

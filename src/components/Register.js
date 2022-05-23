@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-
 
 const Register = ({onRegister}) => {
     const [state, setState] = useState({
@@ -19,7 +17,7 @@ const Register = ({onRegister}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const {email, password} = state;
-        if (onRegister && email  && password) {
+        if (onRegister && email && password) {
             onRegister(email, password)
         }
     }
@@ -50,15 +48,15 @@ const Register = ({onRegister}) => {
                        required
                 />
                 <p className="form__error" id="email-error"/>
-                    <button type="submit"
-                            onSubmit={handleSubmit}
-                            className="popup__btn-submit popup__btn-submit_type_auth">
-                        Зарегистрироваться
-                    </button>
-                    <p className="form__text">
-                        Уже зарегистрированы?
-                        <a className="form__link"
-                           href="/react-mesto-auth/sign-in"> Войти</a></p>
+                <button type="submit"
+                        onSubmit={handleSubmit}
+                        className="popup__btn-submit popup__btn-submit_type_auth">
+                    Зарегистрироваться
+                </button>
+                <p className="form__text">
+                    Уже зарегистрированы?
+                    <a className="form__link"
+                       href="/react-mesto-auth/sign-in"> Войти</a></p>
             </form>
         </div>
     );

@@ -26,7 +26,7 @@ function AddPlacesPopup(props) {
             link: link
         })
     }
-    
+
     useEffect(() => {
         setName('');
         setLink('');

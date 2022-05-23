@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, {useState} from 'react';
 
 const Login = ({onLogin}) => {
     const [inputs, setInputs] = useState({
@@ -23,7 +22,7 @@ const Login = ({onLogin}) => {
         }
     }
 
-    return(
+    return (
         <div onSubmit={handleSubmit}
              className="form form_type_auth">
             <h2 className="form__heading">
@@ -49,8 +48,8 @@ const Login = ({onLogin}) => {
                 />
                 <p className="form__error" id="email-error"/>
                 <button type="submit"
-                            className="popup__btn-submit popup__btn-submit_type_auth">
-                        Войти
+                        className="popup__btn-submit popup__btn-submit_type_auth">
+                    Войти
                 </button>
 
             </form>

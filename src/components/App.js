@@ -14,8 +14,6 @@ import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from './Register.js';
 import * as auth from '../utils/auth';
-import successIcon from '../images/success-icon.svg'
-import failIcon from '../images/fail-icon.svg'
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
 
@@ -50,11 +48,6 @@ function App() {
     // Стейт для логина пользователя
     const [loggedIn, setLoggedIn] = useState(false);
 
-    // Стейт для данных пользователя
-    // const [userData, setUserData] = useState({
-    //     email: '',
-    //     password: ''
-    // })
 
     // Стейт для аутентификации пользователя
     const [isSuccess, setIsSuccess] = useState(false);
@@ -185,8 +178,8 @@ function App() {
     }
 
 
-    function handleRegister (email, password ) {
-        auth.register(email, password )
+    function handleRegister(email, password) {
+        auth.register(email, password)
             .then(() => {
                 setIsSuccess(true);
                 setIsInfoTooltipPopupOpen(true);
@@ -199,8 +192,8 @@ function App() {
             })
     }
 
-    function handleLogin (email, password) {
-        auth.authorize(email, password )
+    function handleLogin(email, password) {
+        auth.authorize(email, password)
             .then((response) => {
                 console.log('auth:', response)
                 if (response) {
@@ -272,7 +265,7 @@ function App() {
                             />
                         </Route>
                         <Route exact path="*">
-                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                         </Route>
                     </Switch>
 

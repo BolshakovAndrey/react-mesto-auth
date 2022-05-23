@@ -6,7 +6,7 @@ import failIcon from '../images/fail-icon.svg'
 function InfoTooltip(props) {
     return (
         <div className={`popup ${props.isOpen && 'popup_opened'}`}>
-            <div className=" popup popup__container popup__type_show_message ">
+            <div className=" popup__container popup__container_type_message popup__type_show_message ">
                 <img
                     className="popup__icon"
                     src={props.isSuccess ? successIcon : failIcon}

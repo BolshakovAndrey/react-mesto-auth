@@ -29,7 +29,7 @@ const Register = ({onRegister}) => {
             <h2 className="form__heading">
                 Регистрация
             </h2>
-            <form onSubmit={handleSubmit} className="popup__fieldset">
+            <form onSubmit={handleSubmit} className="popup__fieldset" name="signup-form">
                 <input className="form__item"
                        id="email"
                        name="email"
@@ -37,6 +37,7 @@ const Register = ({onRegister}) => {
                        value={state.email}
                        onChange={handleChange}
                        placeholder="Email"
+                       required
                 />
                 <p className="form__error" id="email-error"/>
                 <input className="form__item"
@@ -46,6 +47,7 @@ const Register = ({onRegister}) => {
                        value={state.password}
                        onChange={handleChange}
                        placeholder="Пароль"
+                       required
                 />
                 <p className="form__error" id="email-error"/>
                     <button type="submit"

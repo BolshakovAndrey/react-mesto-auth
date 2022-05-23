@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import './../index.css'
 import Header from './Header';
 import Main from './Main';
@@ -16,7 +16,6 @@ import Register from './Register.js';
 import * as auth from '../utils/auth';
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
-
 
 function App() {
 
@@ -39,7 +38,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
 
     // Стейт, отвечающий за данные текущего пользователя
-    const [currentUser, setCurrentUser] = React.useState({
+    const [currentUser, setCurrentUser] = useState({
         name: 'TestUser',
         about: 'Test',
         avatar: 'Test avatar',
@@ -47,7 +46,6 @@ function App() {
 
     // Стейт для логина пользователя
     const [loggedIn, setLoggedIn] = useState(false);
-
 
     // Стейт для аутентификации пользователя
     const [isSuccess, setIsSuccess] = useState(false);
@@ -61,20 +59,20 @@ function App() {
     // Функция первоначальной загрузки пользователя и фотографий
     useEffect(() => {
         setIsLoading(true);
-
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([userData, cardsData]) => {
-                setCurrentUser(userData);
-                setCards(cardsData);
-            })
-            .catch((err) => {
-                console.log(`Не удалось получить данные с сервера. ${err}`);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, [])
-
+        if (loggedIn) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+                .then(([userData, cardsData]) => {
+                    setCurrentUser(userData);
+                    setCards(cardsData);
+                })
+                .catch((err) => {
+                    console.log(`Не удалось получить данные с сервера. ${err}`);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [loggedIn]);
 
     //  Функция для отправки данных пользователя на сервер
     // (редактирование данных профиля)
@@ -135,7 +133,6 @@ function App() {
             })
     }
 
-
     // Функция удаления карточки, по аналогии с функцией лайка
     function handleCardDelete(card) {
         api.deleteCard(card._id)
@@ -146,7 +143,6 @@ function App() {
                 console.log(`${err}`);
             })
     }
-
 
     // Обработчик клика по изображению для открытия popup картинки
     function handleCardClick(card) {
@@ -177,7 +173,6 @@ function App() {
         setIsInfoTooltipPopupOpen(false);
     }
 
-
     function handleRegister(email, password) {
         auth.register(email, password)
             .then(() => {
@@ -195,10 +190,10 @@ function App() {
     function handleLogin(email, password) {
         auth.authorize(email, password)
             .then((response) => {
-                console.log('auth:', response)
                 if (response) {
                     setLoggedIn(true)
                     localStorage.setItem('jwt', response.token);
+                    setUserEmail(email);
                     history.push('/');
                 }
             })

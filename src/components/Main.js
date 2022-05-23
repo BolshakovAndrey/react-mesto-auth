@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import Card from "./Card";
 import Loader from './Loader'
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -8,7 +8,6 @@ function Main(props) {
     const currentUser = useContext(CurrentUserContext);
 
     return (
-        // <div className="container">
         <main className="content">
             <section className="profile">
                 <div className="profile__avatar-container">
@@ -58,7 +57,6 @@ function Main(props) {
                 }
             </section>
         </main>
-        // </div>
     );
 }
 

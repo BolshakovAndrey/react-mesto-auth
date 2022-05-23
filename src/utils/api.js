@@ -44,7 +44,6 @@ class Api {
             .then(this._checkResponseData);
     }
 
-
     // Добавление карточки пользователем
     addUserCard(data) {
         return fetch(`${this._baseUrl}/cards`, {
@@ -104,10 +103,7 @@ class Api {
         })
             .then(this._checkResponseData);
     }
-
-
 }
-
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-38',

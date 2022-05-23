@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
@@ -7,7 +7,6 @@ function EditAvatarPopup(props) {
     //Подписываемся на контекст
     const currentUser = useContext(CurrentUserContext);
 
-
     // Записываем объект, возвращаемый хуком, в переменную
     const avatarRef = useRef('');
 
@@ -15,7 +14,6 @@ function EditAvatarPopup(props) {
     useEffect(() => {
         avatarRef.current.value = currentUser.avatar;
     }, [currentUser])
-
 
     // Очистка поля для ввода url аватара после закрытия popup
     useEffect(() => {
